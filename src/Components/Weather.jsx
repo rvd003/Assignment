@@ -135,6 +135,11 @@ const App = () => {
     }
   };
 
+  const handleClearCity = () => {
+    setCity('');
+    setCurrentWeather({});
+    setForecast([]);
+  };
   const handleConvertToKelvin = () => {
     setInKelvin(!inKelvin);
   };
@@ -167,6 +172,7 @@ const App = () => {
       .catch((error) => {
         console.error('Error fetching forecast data:', error);
         alert('Please Enter Valid City Name')
+        window.location.reload(); 
       });
   };
 
@@ -183,8 +189,12 @@ const App = () => {
      
       <div className="search-container">
       <h1><i>Weather Forecast App </i></h1>
-        <input type="text" value={city} onChange={handleInputChange} placeholder="Enter city name" />
-        <div className='button'>
+      <div className="input-container">
+          <input type="text" value={city} onChange={handleInputChange} placeholder="Enter city name" />
+          {city && (
+            <span className="clear-icon" onClick={handleClearCity}>&#10060;</span>
+          )}
+        </div>        <div className='button'>
         <button onClick={handleSearch}>Search</button>
        
         </div>
